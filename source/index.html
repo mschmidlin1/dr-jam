@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>♪ Dr. JAM ♫</title>
+  <title>Dr. JAM</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,6 +84,23 @@
         <p class="panel-subtitle">Arrangements by Dr. JAM, performed by The Penfield Rotary Stage Band</p>
       </div>
       <div id="recordings-content"></div>
+
+      <div id="audio-player" class="audio-player" hidden>
+        <div class="player-info">
+          <p class="player-track-title" id="player-track-title">—</p>
+          <p class="player-album-title" id="player-album-title">—</p>
+        </div>
+        <div class="player-controls">
+          <button type="button" class="player-btn" id="player-prev" aria-label="Previous track" title="Previous track">&#9664;&#9664;</button>
+          <button type="button" class="player-btn player-btn-main" id="player-play-pause" aria-label="Play" title="Play">&#9654;</button>
+          <button type="button" class="player-btn" id="player-next" aria-label="Next track" title="Next track">&#9654;&#9654;</button>
+        </div>
+        <div class="player-progress">
+          <span class="player-time" id="player-current-time">0:00</span>
+          <input type="range" class="player-seek" id="player-seek" min="0" max="1000" value="0" aria-label="Seek">
+          <span class="player-time" id="player-duration">0:00</span>
+        </div>
+      </div>
     </section>
 
     <section class="tab-panel" data-panel="videos" role="tabpanel" hidden>
