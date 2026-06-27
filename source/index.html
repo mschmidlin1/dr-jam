@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>♪ Dr. JAM ♫</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="banner">
+      <div class="banner-slides">
+        <img src="../resources/images/IMG_6916.jpeg" alt="" class="banner-slide is-active">
+        <img src="../resources/images/unnamed.jpg" alt="" class="banner-slide">
+        <img src="../resources/images/unnamed%20(1).jpg" alt="" class="banner-slide">
+      </div>
+      <div class="banner-overlay">
+        <h1 class="banner-title">Dr. JAM</h1>
+      </div>
+    </div>
+
+    <nav class="tab-nav" role="tablist" aria-label="Site sections">
+      <button type="button" class="tab-btn is-active" role="tab" data-tab="bio" aria-selected="true">Bio</button>
+      <button type="button" class="tab-btn" role="tab" data-tab="recordings" aria-selected="false">Studio Recordings</button>
+      <button type="button" class="tab-btn" role="tab" data-tab="videos" aria-selected="false">Videos</button>
+    </nav>
+  </header>
+
+  <main class="site-main">
+    <section class="tab-panel is-active" data-panel="bio" role="tabpanel" aria-labelledby="bio-tab">
+      <div class="bio-hero">
+        <h2 class="bio-name-large">Dr. JAM</h2>
+        <p class="bio-full-name">John Andrew Moreland</p>
+        <p class="bio-years">1928–2020</p>
+      </div>
+
+      <div class="bio-content">
+        <figure class="bio-photo bio-photo-left">
+          <img src="../resources/images/IMG_6916.jpeg" alt="John Andrew Moreland">
+        </figure>
+
+        <p>John A. Moreland Jr., M.D., age 92, of Dresden, NY and Hollywood Beach, FL passed peacefully surrounded by his family on December 10, 2020.</p>
+
+        <p>He was the devoted husband of 62 years to Eileen Moreland whom he married on September 27, 1958 in Buffalo, NY.</p>
+
+        <p>He was the loving father of John (Maryellen) of Newburyport, MA; Mary Nealon (Dennis) of Middlesex, VT; Michael (Dawn) of Fairport, NY; Eileen Schmidlin (Edward) of Corning, NY; and Daniel (Alexandria) of Edgewater, NJ.</p>
+
+        <p>He was the beloved grandfather of Nicholas, Sean, Amanda, Melissa, Colin, Michael, Anna, Frederick, Andrew, Sarah, Angela, Olivia, David, and Jackson.</p>
+
+        <figure class="bio-photo bio-photo-right">
+          <img src="../resources/images/unnamed.jpg" alt="John with family">
+        </figure>
+
+        <p>Born in Buffalo, NY on July 22, 1928, John was the older son of John A. Moreland, Sr. and Elizabeth Jameson Moreland. After serving in the United States Army, he graduated from the University of Michigan before attending medical school at the University of Heidelberg. He eventually settled in Pittsford, where he and Eileen raised their five children.</p>
+
+        <p>John was an anesthesiologist at Highland Hospital before starting a long and distinguished career at the University of Rochester's Strong Memorial Hospital. In addition to providing patient care as a member of the surgical team, for many years he was an Associate Professor where he trained new physicians who were completing their residencies.</p>
+
+        <p>A lifelong musician, John played trumpet in the University of Michigan Marching Band. After a hiatus from playing while his children were young, he resumed practicing and played in a number of local bands, both in the Rochester area and in south Florida. These included the Penfield Rotary Band where he was the director for 12 years, the Finger Lakes Concert Band, Penn Yan Community Band, and Seneca Falls Community Band. Over the years he arranged many jazz standards and popular songs for bands of all sizes. He loved playing duets with his children, grandchildren, and friends.</p>
+
+        <div class="bio-gallery">
+          <figure class="bio-photo">
+            <img src="../resources/images/unnamed%20(1).jpg" alt="John playing trumpet">
+          </figure>
+          <figure class="bio-photo">
+            <img src="../resources/images/unnamed.png" alt="John with his band">
+          </figure>
+        </div>
+
+        <p>He was also an avid gardener with his wife Eileen. Together they created landscapes that were admired by neighbors wherever they lived.</p>
+
+        <p>John regarded his family as his greatest accomplishment and source of pride. He spent many years teaching his children to ski at Hunt Hollow, and in following all their athletic and educational pursuits. He honed his carpentry skills constructing a treehouse, bookcases, and remodeling the family's homes in both Pittsford and Dresden. He nurtured his children's and grandchildren's love of music, and many of them have become musicians themselves. Most of all, he cherished the time spent together with them, whether on the water at Seneca Lake, or along the Broadwalk in Hollywood Beach.</p>
+
+        <p>Due to the coronavirus pandemic, a celebration of John's life will be held at a later date. In lieu of flowers, donations may be made in John's memory to either Seneca Lake Guardian (senecalakeguardian.org) or Seneca Lake Pure Waters Association (senecalake.org) to help preserve the lake that he loved.</p>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="recordings" role="tabpanel" hidden>
+      <div class="panel-intro">
+        <h2 class="panel-title">Studio Recordings</h2>
+        <p class="panel-subtitle">Arrangements by Dr. JAM, performed by The Penfield Rotary Stage Band</p>
+      </div>
+      <div id="recordings-content"></div>
+    </section>
+
+    <section class="tab-panel" data-panel="videos" role="tabpanel" hidden>
+      <div class="panel-intro">
+        <h2 class="panel-title">Videos</h2>
+        <p class="panel-subtitle">Performance recordings of bands playing his arrangements</p>
+      </div>
+      <div class="videos-placeholder">
+        <p>Videos will be added here soon. Check back for recordings of bands performing Dr. JAM's arrangements.</p>
+        <ul class="video-list" id="video-list" aria-label="Performance videos">
+          <!-- Future video embeds go here, e.g.:
+          <li class="video-item">
+            <h3>Performance title</h3>
+            <div class="video-embed">
+              <iframe ...></iframe>
+            </div>
+          </li>
+          -->
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>In memory of John Andrew Moreland — Dr. JAM</p>
+  </footer>
+
+  <script src="js/albums.js"></script>
+  <script src="js/tabs.js"></script>
+  <script src="js/player.js"></script>
+  <script>
+    (function () {
+      const slides = document.querySelectorAll(".banner-slide");
+      if (slides.length < 2) return;
+      let current = 0;
+      setInterval(function () {
+        slides[current].classList.remove("is-active");
+        current = (current + 1) % slides.length;
+        slides[current].classList.add("is-active");
+      }, 6000);
+    })();
+  </script>
+</body>
+</html>
