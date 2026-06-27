@@ -60,7 +60,7 @@ img {
 
 .banner {
   position: relative;
-  height: 380px;
+  height: 680px;
   overflow: hidden;
   background: #3d342c;
 }
@@ -554,7 +554,7 @@ img {
 
 @media (max-width: 640px) {
   .banner {
-    height: 280px;
+    height: 440px;
   }
 
   .tab-btn {
