@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drjam
+  namespace: drjam
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drjam
+  template:
+    metadata:
+      labels:
+        app: drjam
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/mschmidlin1/dr-jam:latest
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
