@@ -3,10 +3,11 @@
   if (!container || typeof ALBUMS === "undefined") return;
 
   const audio = new Audio();
+  audio.preload = "auto";
   let activeAlbumId = null;
   let activeTrackIndex = null;
   let playAllMode = false;
-  let isSeeking = false;
+  const seekState = { isSeeking: false };
 
   const playerBar = document.getElementById("audio-player");
   const playerTrackTitle = document.getElementById("player-track-title");
@@ -98,7 +99,7 @@
     playerPrev.disabled = activeTrackIndex === 0;
     playerNext.disabled = activeTrackIndex >= album.tracks.length - 1;
 
-    if (!isSeeking && Number.isFinite(audio.duration)) {
+    if (!seekState.isSeeking && Number.isFinite(audio.duration)) {
       playerSeek.value = String(
         Math.round((audio.currentTime / audio.duration) * 1000)
       );
@@ -122,7 +123,16 @@
     activeTrackIndex = trackIndex;
     playAllMode = fromPlayAll;
 
+    delete audio._seekBlobPromise;
+    if (audio._seekBlobUrl) {
+      URL.revokeObjectURL(audio._seekBlobUrl);
+      delete audio._seekBlobUrl;
+    }
+
     audio.src = track.src;
+    if (window.DrJamMedia) {
+      window.DrJamMedia.ensureSeekable(audio);
+    }
     audio.play().catch(() => {
       updatePlayerBar();
     });
@@ -214,16 +224,16 @@
     }
   });
 
-  audio.addEventListener("timeupdate", () => {
-    if (isSeeking || !Number.isFinite(audio.duration)) return;
-    playerSeek.value = String(
-      Math.round((audio.currentTime / audio.duration) * 1000)
-    );
-    playerCurrentTime.textContent = formatTime(audio.currentTime);
-  });
-
   audio.addEventListener("loadedmetadata", () => {
     playerDuration.textContent = formatTime(audio.duration);
+    updatePlayerBar();
+    if (window.DrJamMedia && !window.DrJamMedia.isFullySeekable(audio)) {
+      window.DrJamMedia.ensureSeekable(audio);
+    }
+  });
+
+  audio.addEventListener("timeupdate", () => {
+    if (seekState.isSeeking || !Number.isFinite(audio.duration)) return;
     updatePlayerBar();
   });
 
@@ -234,19 +244,33 @@
   playerPrev.addEventListener("click", playPrevious);
   playerNext.addEventListener("click", playNext);
 
-  playerSeek.addEventListener("input", () => {
-    isSeeking = true;
-    const duration = audio.duration || 0;
-    const time = (Number(playerSeek.value) / 1000) * duration;
-    playerCurrentTime.textContent = formatTime(time);
-  });
+  if (window.DrJamMedia) {
+    window.DrJamMedia.bindSeekInput(
+      audio,
+      playerSeek,
+      playerCurrentTime,
+      playerDuration,
+      seekState
+    );
+    playerSeek.addEventListener("change", updatePlayerBar);
+  } else {
+    playerSeek.addEventListener("input", () => {
+      seekState.isSeeking = true;
+      const duration = audio.duration || 0;
+      const time = (Number(playerSeek.value) / 1000) * duration;
+      playerCurrentTime.textContent = formatTime(time);
+      if (Number.isFinite(duration) && duration > 0) {
+        audio.currentTime = time;
+      }
+    });
 
-  playerSeek.addEventListener("change", () => {
-    const duration = audio.duration || 0;
-    audio.currentTime = (Number(playerSeek.value) / 1000) * duration;
-    isSeeking = false;
-    updatePlayerBar();
-  });
+    playerSeek.addEventListener("change", () => {
+      const duration = audio.duration || 0;
+      audio.currentTime = (Number(playerSeek.value) / 1000) * duration;
+      seekState.isSeeking = false;
+      updatePlayerBar();
+    });
+  }
 
   function renderAlbums() {
     container.innerHTML = ALBUMS.map(

@@ -26,7 +26,7 @@
     <nav class="tab-nav" role="tablist" aria-label="Site sections">
       <button type="button" class="tab-btn is-active" role="tab" data-tab="bio" aria-selected="true">Bio</button>
       <button type="button" class="tab-btn" role="tab" data-tab="recordings" aria-selected="false">Studio Recordings</button>
-      <button type="button" class="tab-btn" role="tab" data-tab="videos" aria-selected="false">Videos</button>
+      <button type="button" class="tab-btn" role="tab" data-tab="videos" aria-selected="false">Live Performances</button>
       <button type="button" class="tab-btn" role="tab" data-tab="memorial" aria-selected="false">Memorial Service</button>
     </nav>
   </header>
@@ -106,8 +106,8 @@
 
     <section class="tab-panel" data-panel="videos" role="tabpanel" hidden>
       <div class="panel-intro">
-        <h2 class="panel-title">Videos</h2>
-        <p class="panel-subtitle">Performance recordings of bands playing his arrangements</p>
+        <h2 class="panel-title">Live Performances</h2>
+        <p class="panel-subtitle">Recordings of community bands performing his arrangements and music composed in his honor</p>
       </div>
       <div class="video-events" id="video-events">
         <section class="video-event">
@@ -161,6 +161,28 @@
             </li>
           </ul>
         </section>
+        <section class="video-event">
+          <h3 class="video-event-title">Finger Lakes Community Band</h3>
+          <p class="video-event-details">
+            May 21, 2023<br>
+            Performed and Composed in honor of John Andrew Moreland
+          </p>
+          <div class="video-item">
+            <div class="video-item-header">
+              <h3 class="video-item-title">A Peace in Time</h3>
+              <div class="video-item-credits">
+                <p class="video-item-composer">Dave Hayden</p>
+              </div>
+            </div>
+            <figure class="video-performance-photo">
+              <img src="../resources/images/Emma%20A%20Peace%20in%20Time.jpg" alt="Finger Lakes Community Band after performing A Peace in Time — Diana Chase, Emma, Dave Hayden, and Greg Kane">
+              <figcaption>From left: Diana Chase (soloist), Emma, Dave Hayden (composer), Greg Kane (conductor)</figcaption>
+            </figure>
+            <audio class="video-audio-player" controls preload="metadata" title="A Peace in Time">
+              <source src="../resources/music/A%20Peace%20in%20Time%20(Dave%20Hayden).m4a" type="audio/mp4">
+            </audio>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -186,6 +208,7 @@
 
   <script src="js/albums.js"></script>
   <script src="js/tabs.js"></script>
+  <script src="js/media-seek.js"></script>
   <script src="js/player.js"></script>
   <script>
     (function () {
