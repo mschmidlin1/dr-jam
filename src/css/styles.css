@@ -322,8 +322,26 @@ img {
   color: var(--color-accent-soft);
 }
 
+.track-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
 .track-title {
   font-size: 0.98rem;
+}
+
+.track-credit,
+.track-soloists {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.35;
+}
+
+.track-soloists {
+  font-style: italic;
 }
 
 /* Buttons */

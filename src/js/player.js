@@ -123,16 +123,32 @@
     activeTrackIndex = trackIndex;
     playAllMode = fromPlayAll;
 
-    delete audio._seekBlobPromise;
-    if (audio._seekBlobUrl) {
-      URL.revokeObjectURL(audio._seekBlobUrl);
+    audio.pause();
+
+    let oldBlobUrl = null;
+    if (window.DrJamMedia) {
+      oldBlobUrl = window.DrJamMedia.invalidateSeekable(audio);
+    } else if (audio._seekBlobUrl) {
+      oldBlobUrl = audio._seekBlobUrl;
       delete audio._seekBlobUrl;
     }
 
-    audio.src = track.src;
+    const assignSrc = () => {
+      audio.src = track.src;
+      // Revoke only after the element has left the old blob URL.
+      if (oldBlobUrl) {
+        URL.revokeObjectURL(oldBlobUrl);
+      }
+    };
+
     if (window.DrJamMedia) {
-      window.DrJamMedia.ensureSeekable(audio);
+      window.DrJamMedia.withEndedSuppressed(audio, assignSrc);
+    } else {
+      assignSrc();
     }
+
+    // Do not blob-convert here — swapping src mid-playback races with `ended`
+    // and can restart the previous track. Seek bar calls ensureSeekable on demand.
     audio.play().catch(() => {
       updatePlayerBar();
     });
@@ -213,6 +229,9 @@
   }
 
   audio.addEventListener("ended", () => {
+    // Ignore aborted loads (track change / blob swap), not natural completion.
+    if (audio._suppressEnded) return;
+
     const album = getAlbum(activeAlbumId);
     if (!album || activeTrackIndex === null) return;
 
@@ -227,9 +246,6 @@
   audio.addEventListener("loadedmetadata", () => {
     playerDuration.textContent = formatTime(audio.duration);
     updatePlayerBar();
-    if (window.DrJamMedia && !window.DrJamMedia.isFullySeekable(audio)) {
-      window.DrJamMedia.ensureSeekable(audio);
-    }
   });
 
   audio.addEventListener("timeupdate", () => {
@@ -301,7 +317,19 @@
                 data-track-index="${index}"
               >
                 <span class="track-number">${String(index + 1).padStart(2, "0")}</span>
-                <span class="track-title">${track.title}</span>
+                <div class="track-info">
+                  <span class="track-title">${track.title}</span>
+                  ${
+                    track.credit
+                      ? `<span class="track-credit">${track.credit}</span>`
+                      : ""
+                  }
+                  ${
+                    track.soloists && track.soloists.length
+                      ? `<span class="track-soloists">${track.soloists.join(" · ")}</span>`
+                      : ""
+                  }
+                </div>
                 <button
                   type="button"
                   class="btn track-play-btn"
